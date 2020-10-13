@@ -70,7 +70,7 @@ fun SquareFun(modifier: Modifier = Modifier) {
                 size = Size(o, o)
             )
             translate(centerX, centerY) {
-                drawTriangles(path, d, 1f, aColor.getColor())
+                drawPaths(path, d, 1f, aColor.getColor())
             }
         } else {
             drawRect(
@@ -85,7 +85,7 @@ fun SquareFun(modifier: Modifier = Modifier) {
             drawIntoCanvas {canvas ->
                 canvas.saveLayer(size.toRect(), paint)
                 translate(centerX, centerY) {
-                    drawTriangles(path, d, tt, aColor.invert().getColor(), true)
+                    drawPaths(path, d, tt, aColor.invert().getColor(), true)
                 }
                 canvas.restore()
             }
@@ -98,7 +98,7 @@ fun SquareFun(modifier: Modifier = Modifier) {
 
 val matrix = arrayOf(-1 to -1, 1 to -1, -1 to 1, 1 to 1)
 
-fun DrawScope.drawTriangles(path: Path, d: Float, t: Float, color: Color, shouldBlend: Boolean = false) {
+fun DrawScope.drawPaths(path: Path, d: Float, t: Float, color: Color, shouldBlend: Boolean = false) {
     for (i in 0 until 4) {
         rotate(180 * easing2(t), pivot = Offset(
             (matrix[i].first * d / 2),

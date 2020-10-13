@@ -1,6 +1,5 @@
 package com.narendrakothamire.composeapplication
 
-import android.text.method.Touch
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants.Infinite
 import androidx.compose.animation.core.LinearEasing
