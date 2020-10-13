@@ -117,8 +117,4 @@ private fun DrawScope.drawPaths(s: Float) {
 
 }
 
-private fun map(value: Float, start1: Float, stop1: Float, start2: Float, stop2: Float): Float {
-    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
-}
-
 private fun factor(index: Int) = if (index % 2 == 0) 1 else 0
