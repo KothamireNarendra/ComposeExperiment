@@ -46,7 +46,7 @@ fun Sun(modifier: Modifier = Modifier) {
             for (i in 0 until N){
                 rotate((360 * i / N).toFloat(), pivot = Offset(0f, 0f)){
                     dataList.forEach {
-                        drawRay(s *it.f1 + s *it.f2, t + it.t)
+                        drawPath(s *it.f1 + s *it.f2, t + it.t)
                     }
                 }
             }
@@ -55,7 +55,7 @@ fun Sun(modifier: Modifier = Modifier) {
     }
 }
 
-private fun DrawScope.drawRay(rd: Float, q: Float) {
+private fun DrawScope.drawPath(rd: Float, q: Float) {
     for (i in 0 until NUM) {
         val value = i * 1.0f / NUM - 1
         val s = size.width
