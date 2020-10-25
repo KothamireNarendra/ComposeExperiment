@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             Box(modifier = Modifier.fillMaxSize(), gravity = ContentGravity.Center, backgroundColor = Color(41,54,59)) {
                 val modifier = Modifier.aspectRatio(1f).fillMaxSize().padding(10.dp)
 
-                SquareFun(modifier = modifier)
+                Sun(modifier = modifier)
             }
         }
     }
