@@ -46,7 +46,7 @@ fun AnimSquare(modifier: Modifier = Modifier) {
             val t = animatedProgress.value
             if (t <= 0.5) {
                 val tt = map(t, 0f, 0.5f, 0f, 1f)
-                rotate(45 * tt, 0f, 0f) {
+                rotate(45 * tt, Offset(0f, 0f)) {
                     for (i in 0 until NUM_OF_SQUARES) {
                         drawRect(i, tt, s)
                     }
@@ -57,7 +57,7 @@ fun AnimSquare(modifier: Modifier = Modifier) {
                 }
                 drawCircle(color = Color.Red, radius = s, center = Offset((size.width / 2).toLong()))
                 val tt = map(t, 0.5f, 1f, 0f, 1f)
-                rotate(45 + 45 * tt, 0f, 0f) {
+                rotate(45 + 45 * tt,  Offset(0f, 0f))  {
                     drawPaths(s)
                 }
 
@@ -75,7 +75,7 @@ private fun DrawScope.drawRect(index: Int, t: Float, s: Float) {
     val w = (a.toFloat() / sqrt(2f))
     withTransform({
         translate((-x).toFloat(), (-y).toFloat())
-        rotate(-(45f * factor(index = index) + (90 * t)), 0f, 0f)
+        rotate(-(45f * factor(index = index) + (90 * t)),  Offset(0f, 0f))
     }, {
         drawRect(
                 color = Color.Red,
