@@ -71,7 +71,7 @@ fun Worms(modifier: Modifier = Modifier) {
     }
 }
 
-private fun getGradient(x: Float, radius: Float, isTop: Boolean): ShaderBrush{
+private fun getGradient(x: Float, w: Float, isTop: Boolean): ShaderBrush{
     val list = if(isTop){
         listOf(
             color1,
@@ -98,7 +98,7 @@ private fun getGradient(x: Float, radius: Float, isTop: Boolean): ShaderBrush{
     return colorMap.getOrPut("$x-$isTop"){
         HorizontalGradient(
             list,
-            x - radius, x + radius
+            x - w, x + w
         )
     }
 }
