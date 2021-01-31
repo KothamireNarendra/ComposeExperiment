@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Box(modifier = Modifier.fillMaxSize().background(/*Color(41,54,59)*/ Color(18, 18, 66)), alignment = Alignment.Center) {
+            Box(modifier = Modifier.fillMaxSize().background(/*Color(41,54,59)*/ Color.Black), alignment = Alignment.Center) {
                 val modifier = Modifier.aspectRatio(1f).fillMaxSize().padding(10.dp)
 
-                Worms(modifier = modifier)
+                HexFun(modifier = modifier)
             }
         }
     }
