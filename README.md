@@ -1,6 +1,6 @@
 # ComposeExperiment
 
-This is an experiment with jetpack compose to implement following animation by Dave from [Bees & Bombs](https://www.tumblr.com/blog/view/beesandbombs)
+This is an experiment with jetpack compose to implement following animation by Dave from [Bees & Bombs](https://www.tumblr.com/blog/view/beesandbombs) and few my own
 
 ![animation](https://github.com/KothamireNarendra/ComposeExperiment/blob/master/gifs/SunAnimation.gif)
 ![animation](https://github.com/KothamireNarendra/ComposeExperiment/blob/master/gifs/SquareAnimation.gif)
