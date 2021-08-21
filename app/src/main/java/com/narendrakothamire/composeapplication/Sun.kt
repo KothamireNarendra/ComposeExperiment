@@ -1,13 +1,8 @@
 package com.narendrakothamire.composeapplication
 
-import androidx.compose.animation.animatedFloat
-import androidx.compose.animation.core.AnimationConstants
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.repeatable
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -29,16 +24,15 @@ fun Sun(modifier: Modifier = Modifier) {
         Data(.3f, .20f, 0.66f)
     )
 
-    val animatedProgress = animatedFloat(0f)
-    onActive {
-        animatedProgress.animateTo(
-            targetValue = 1f,
-            anim = repeatable(
-                iterations = AnimationConstants.Infinite,
-                animation = tween(durationMillis = 4000, easing = LinearEasing),
-            ),
+    val infiniteTransition = rememberInfiniteTransition()
+    val animatedProgress = infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
         )
-    }
+    )
     val t = 1 - animatedProgress.value
     Canvas(modifier = modifier) {
         val s = size.width

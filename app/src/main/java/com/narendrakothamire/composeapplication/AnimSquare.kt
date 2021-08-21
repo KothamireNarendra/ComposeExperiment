@@ -1,13 +1,9 @@
 package com.narendrakothamire.composeapplication
 
-import androidx.compose.animation.animatedFloat
-import androidx.compose.animation.core.AnimationConstants.Infinite
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.repeatable
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -29,16 +25,17 @@ val path = Path()
 @Composable
 fun AnimSquare(modifier: Modifier = Modifier) {
 
-    val animatedProgress = animatedFloat(0f)
-    onActive {
-        animatedProgress.animateTo(
-                targetValue = 1f,
-                anim = repeatable(
-                        iterations = Infinite,
-                        animation = tween(durationMillis = 1500, easing = LinearEasing),
-                ),
+    val infiniteTransition = rememberInfiniteTransition()
+    val animatedProgress = infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1500, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
         )
-    }
+    )
+    androidx.compose.material.Surface(color = Color.White) {
+
 
     Canvas(modifier = modifier) {
         val s = size.width * .30f
@@ -55,7 +52,7 @@ fun AnimSquare(modifier: Modifier = Modifier) {
                 for (i in 0 until NUM_OF_SQUARES) {
                     drawRect(i, 0f, s)
                 }
-                drawCircle(color = Color.Red, radius = s, center = Offset((size.width / 2).toLong()))
+                drawCircle(color = Color.Red, radius = s, center = Offset(0f, 0f))
                 val tt = map(t, 0.5f, 1f, 0f, 1f)
                 rotate(45 + 45 * tt,  Offset(0f, 0f))  {
                     drawPaths(s)
@@ -63,6 +60,7 @@ fun AnimSquare(modifier: Modifier = Modifier) {
 
             }
         }
+    }
     }
 }
 

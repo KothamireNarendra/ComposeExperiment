@@ -1,13 +1,8 @@
 package com.narendrakothamire.composeapplication
 
-import androidx.compose.animation.animatedFloat
-import androidx.compose.animation.core.AnimationConstants
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.repeatable
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -24,20 +19,19 @@ import androidx.compose.ui.graphics.drawscope.DrawScope.Companion.DefaultBlendMo
 @Composable
 fun SquareFun(modifier: Modifier = Modifier) {
     val path = remember { Path() }
-    val animatedProgress = animatedFloat(0f)
     var isDone = false
     var aColor: AColor = AColor.WHITE
     val paint = remember { Paint() }
 
-    onActive {
-        animatedProgress.animateTo(
-            targetValue = 1f,
-            anim = repeatable(
-                iterations = AnimationConstants.Infinite,
-                animation = tween(durationMillis = 2500, easing = LinearEasing),
-            )
+    val infiniteTransition = rememberInfiniteTransition()
+    val animatedProgress = infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
         )
-    }
+    )
     Canvas(modifier = modifier) {
         val t = animatedProgress.value
         val w = size.width

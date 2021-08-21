@@ -1,19 +1,17 @@
 package com.narendrakothamire.composeapplication
 
-import androidx.compose.animation.animatedFloat
-import androidx.compose.animation.core.AnimationConstants
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.repeatable
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.*
-import kotlin.math.cos
-import kotlin.math.sin
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.drawscope.translate
+import java.lang.Math.cos
+import java.lang.Math.sin
 
 private const val NUMS = 6
 private const val BASE_ANG = 60.0
@@ -21,16 +19,15 @@ private const val BASE_ANG = 60.0
 @Composable
 fun HexFun(modifier: Modifier = Modifier) {
 
-    val animatedProgress = animatedFloat(0f)
-    onActive {
-        animatedProgress.animateTo(
-            targetValue = 1f,
-            anim = repeatable(
-                iterations = AnimationConstants.Infinite,
-                animation = tween(durationMillis = 12000, easing = LinearEasing),
-            ),
+    val infiniteTransition = rememberInfiniteTransition()
+    val animatedProgress = infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(8000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
         )
-    }
+    )
     val t = animatedProgress.value
     Canvas(modifier = modifier) {
         val s = size.width * .1388f
@@ -51,10 +48,10 @@ fun HexFun(modifier: Modifier = Modifier) {
                 }
                 drawOuter(s)
 
-                for (i in 0 until NUMS) {
+                for (i in 0 .. NUMS-1) {
                     rotate((60f * i), Offset(0f, 0f)) {
                         translate(-s * 2, 0f) {
-                            for (j in 0 until NUMS) {
+                            for (j in 0 .. NUMS-1) {
                                 val x: Float = (s * cos(Math.toRadians(BASE_ANG * j))).toFloat()
                                 val y: Float = (s * sin(Math.toRadians(BASE_ANG * j))).toFloat()
                                 if (j == 0) {
@@ -87,7 +84,7 @@ fun DrawScope.drawInner(q: Float, s: Float) {
         for (j in 0..1) {
             rotate(90 + 180f * j, Offset(0f, 0f)) {
                 val ang = (2 * Math.PI) / 3
-                for (i in 0 until 3) {
+                for (i in 0 .. 2) {
                     val x = w * cos(i * ang).toFloat()
                     val y = w * sin(i * ang).toFloat()
                     if (i == 0) {
@@ -104,7 +101,7 @@ fun DrawScope.drawInner(q: Float, s: Float) {
             }
         }
 
-        for (j in 0 until NUMS) {
+        for (j in 0 .. NUMS-1) {
             val x: Float = (s * cos(Math.toRadians(BASE_ANG * j))).toFloat()
             val y: Float = (s * sin(Math.toRadians(BASE_ANG * j))).toFloat()
 
@@ -118,7 +115,7 @@ fun DrawScope.drawInner(q: Float, s: Float) {
 }
 
 fun DrawScope.drawOuter(r: Float) {
-    for (j in 0 until NUMS) {
+    for (j in 0 .. NUMS-1) {
         val x: Float = (r * cos(Math.toRadians(BASE_ANG * j))).toFloat()
         val y: Float = (r * sin(Math.toRadians(BASE_ANG * j))).toFloat()
         if (j == 0) {
