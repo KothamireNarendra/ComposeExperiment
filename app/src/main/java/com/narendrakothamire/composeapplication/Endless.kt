@@ -15,11 +15,11 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.*
 import androidx.compose.ui.graphics.graphicsLayer
 
-private const val NUMS = 120
-private val layers = mutableListOf<Layer>()
-private val layerOverlap = (NUMS * 0.1).toInt()
+private const val NUMS = 130
+private val sqrs = mutableListOf<Sqr>()
+private val overlap = (NUMS * 0.1).toInt()
 
-private data class Layer(val x: Float, val y: Float, var r: Float)
+private data class Sqr(val x: Float, val y: Float, var r: Float)
 
 @Composable
 fun Endless(modifier: Modifier = Modifier) {
@@ -36,6 +36,8 @@ fun Endless(modifier: Modifier = Modifier) {
     )
 
     val t = animatedProgress.value
+    androidx.compose.material.Surface(color = Color.White) {
+
 
     Canvas(
         Modifier
@@ -46,10 +48,10 @@ fun Endless(modifier: Modifier = Modifier) {
         val radius = width * 0.5
         val layerSize = radius * 0.25f
         t
-        if (layers.isEmpty()) {
+        if (sqrs.isEmpty()) {
             repeat(NUMS) { index ->
-                layers.add(
-                    Layer(
+                sqrs.add(
+                    Sqr(
                         x = (width / 2 + (Math.sin((index.toFloat() / NUMS.toFloat()) * 2 * Math.PI) * (radius - layerSize))).toFloat(),
                         y = (height / 2 + (Math.cos((index.toFloat() / NUMS.toFloat()) * 2 * Math.PI) * (radius - layerSize))).toFloat(),
                         r = (index / NUMS * Math.PI * 2).toFloat()
@@ -59,18 +61,18 @@ fun Endless(modifier: Modifier = Modifier) {
         }
 
         repeat(NUMS) { index ->
-            layers[index].r += 0.02f
+            sqrs[index].r += 0.02f
         }
 
         drawIntoCanvas { canvas ->
             paint.blendMode = BlendMode.DstOver
             val bounds = size.toRect()
             canvas.saveLayer(bounds, paint)
-            for (it in 0 until layers.size - layerOverlap) {
-                translate(layers[it].x, layers[it].y) {
-                    rotate(Math.toDegrees(layers[it].r.toDouble()).toFloat(), Offset(0f, 0f)) {
+            for (it in 0 until sqrs.size - overlap) {
+                translate(sqrs[it].x, sqrs[it].y) {
+                    rotate(Math.toDegrees(sqrs[it].r.toDouble()).toFloat(), Offset(0f, 0f)) {
                         drawRect(
-                            color = Color.Black,
+                            color = Color(41,54,59),
                             topLeft = Offset(
                                 ((-layerSize / 2).toFloat()),
                                 ((-layerSize / 2f).toFloat())
@@ -94,8 +96,8 @@ fun Endless(modifier: Modifier = Modifier) {
 
             paint.blendMode = BlendMode.DstIn
             canvas.saveLayer(bounds, paint)
-            translate(layers[0].x, layers[0].y) {
-                rotate(Math.toDegrees(layers[0].r.toDouble()).toFloat(), Offset(0f, 0f)) {
+            translate(sqrs[0].x, sqrs[0].y) {
+                rotate(Math.toDegrees(sqrs[0].r.toDouble()).toFloat(), Offset(0f, 0f)) {
                     val s = layerSize +10
                     drawRect(
                         color = Color.Blue,
@@ -112,14 +114,14 @@ fun Endless(modifier: Modifier = Modifier) {
 
             paint.blendMode = BlendMode.DstOver
             canvas.saveLayer(bounds, paint)
-            for (it in 0 until layers.size) {
-                translate(layers[it].x, layers[it].y) {
+            for (it in 0 until sqrs.size) {
+                translate(sqrs[it].x, sqrs[it].y) {
                     rotate(
-                        Math.toDegrees(layers[it].r.toDouble()).toFloat(),
+                        Math.toDegrees(sqrs[it].r.toDouble()).toFloat(),
                         Offset(0f, 0f)
                     ) {
                         drawRect(
-                            color = Color.Black,
+                            color = Color(41,54,59),
                             topLeft = Offset(
                                 ((-layerSize / 2).toFloat()),
                                 ((-layerSize / 2f).toFloat())
@@ -141,6 +143,7 @@ fun Endless(modifier: Modifier = Modifier) {
             }
             canvas.restore()
         }
+    }
     }
 }
 

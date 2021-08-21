@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             Box(modifier = Modifier.fillMaxSize().background(Color(41,54,59)), contentAlignment = Alignment.Center) {
                 val modifier = Modifier.aspectRatio(1f).fillMaxSize().padding(10.dp)
 
-                AnimSquare(modifier = modifier)
+                Endless(modifier = modifier)
             }
         }
     }
