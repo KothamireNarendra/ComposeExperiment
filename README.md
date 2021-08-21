@@ -1,6 +1,7 @@
 # ComposeExperiment
 
-This is an experiment with jetpack compose to implement following animation 
+This is an experiment with jetpack compose to implement following animations
+
 ![animation](https://github.com/KothamireNarendra/ComposeExperiment/blob/master/gifs/EndlessAnimation.gif)
 ![animation](https://github.com/KothamireNarendra/ComposeExperiment/blob/master/gifs/SunAnimation.gif)
 ![animation](https://github.com/KothamireNarendra/ComposeExperiment/blob/master/gifs/SquareAnimation.gif)
